@@ -1,13 +1,50 @@
 #wc-tool
 import sys
+import os
 
-file=open("test.txt","r")
-line=file.readline()
-l=1
+file=open("test.txt","r",encoding="utf-8",errors="ignore")
+l=0
 num_words=0
+num_chars=0
+#if argument is -c
+if len(sys.argv)>1:
+    if sys.argv[1]=="-c":
+        print("Number of bytes:",os.path.getsize("test.txt"))   
+    elif sys.argv[1]=="-l":
+        reader=file.readline()
+        while reader:
+            l+=1
+            reader=file.readline()
+        print("Number of lines:",l)
 
-if sys.argv[1]=="-c test.txt":
-    print("Number of bytes:",sys.getsizeof("test.txt")
-    
-    
-    
+    elif sys.argv[1]=="-w":
+        reader=file.readline()
+        while reader:
+            num_words+=len(reader.split())
+            reader=file.readline()
+        print("Number of words:",num_words)
+            
+    elif sys.argv[1]=="-m":
+        for line in file:
+            word=line.split()
+            num_chars+=sum(len(w) for w in word)
+        print("Number of characters:",num_chars)
+        
+else:
+   print("Number of bytes:",os.path.getsize("test.txt"))
+   reader=file.readline()
+   while reader:
+       l+=1
+       num_words+=len(reader.split())
+       word=reader.split()
+       #num_chars+=sum(len(w) for w in word)
+       reader=file.readline()
+   file=open("test.txt","r",errors="ignore")
+   x=file.read()
+   for char in x:
+       if char!="\n":
+           num_chars+=1
+       
+   print("Number of words:",num_words)
+   print("Number of lines:",l)
+   print("Number of characters:",num_chars)
