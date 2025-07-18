@@ -1,0 +1,13 @@
+#wc-tool
+import sys
+
+file=open("test.txt","r")
+line=file.readline()
+l=1
+num_words=0
+
+if sys.argv[1]=="-c test.txt":
+    print("Number of bytes:",sys.getsizeof("test.txt")
+    
+    
+    
